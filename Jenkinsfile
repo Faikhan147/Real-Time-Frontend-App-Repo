@@ -11,7 +11,7 @@ pipeline {
         IMAGE_NAME_TAG = "${FRONTEND_IMAGE_NAME}:${TAG}"
     }
 
-
+ stages {
         stage('SonarQube Code Analysis') {
             steps {
                 withSonarQubeEnv('Sonar-Global-Token') {
@@ -22,7 +22,7 @@ pipeline {
                                 -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                                 -Dsonar.projectName=${SONAR_PROJECT_NAME} \
                                 -Dsonar.sources=. \
-                                -Dsonar.host.url=http://13.126.239.35:9000"
+                                -Dsonar.host.url=http://3.108.61.218:9000"
                         }
                     }
                 }
