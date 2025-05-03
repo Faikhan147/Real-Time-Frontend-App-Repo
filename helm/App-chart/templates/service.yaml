@@ -3,9 +3,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-website-service
+  name: {{ .Release.Name }}-app-service
   labels:
-    app: website
+    app: app
     release: {{ .Release.Name }}
 spec:
   type: LoadBalancer   # ⭐ Yeh line add ki gayi hai
@@ -13,6 +13,6 @@ spec:
     - port: 80
       targetPort: 80
   selector:
-    app: website
+    app: app
     release: {{ .Release.Name }}
 
