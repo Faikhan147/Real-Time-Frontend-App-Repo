@@ -3,24 +3,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-website
+  name: {{ .Release.Name }}-app
   labels:
-    app: website
+    app: app
     release: {{ .Release.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: website
+      app: app
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: website
+        app: app
         release: {{ .Release.Name }}
     spec:
       containers:
-      - name: website
+      - name: app
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 80
