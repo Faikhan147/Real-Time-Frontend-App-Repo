@@ -256,7 +256,7 @@ stage('Monitor Deployment (Pods + App Health Check)') {
                     retry(3) {
                         echo "Deploying to Production..."
                         sh """
-                            helm upgrade --install website-prod ${HELM_CHART_DIR} \
+                            helm upgrade --install app-prod ${HELM_CHART_DIR} \
                             --namespace prod \
                             --set ${chartValues} \
                             --set resources.requests.memory=128Mi \
