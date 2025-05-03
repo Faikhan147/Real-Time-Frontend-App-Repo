@@ -2,7 +2,7 @@
 
 # Image configuration
 image:
-  repository: "faisalkhan35/my-website"
+  repository: "faisalkhan35/my-app"
   tag: "latest"
 
 # Readiness Probe Configuration
