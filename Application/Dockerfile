@@ -8,6 +8,7 @@ RUN npm run build
 
 # Step 2: Serve with NGINX
 FROM nginx:alpine
+RUN apt-get update && apt-get upgrade -y && apt-get install -y curl && apt-get clean
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=builder /app/build /usr/share/nginx/html
 RUN echo "OK" > /usr/share/nginx/html/healthz
