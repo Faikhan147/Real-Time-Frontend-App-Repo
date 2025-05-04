@@ -165,7 +165,7 @@ pipeline {
                     retry(3) {
                         echo "Deploying to ${params.ENVIRONMENT} environment..."
                         sh """
-                            helm upgrade --install website-${params.ENVIRONMENT} ${HELM_CHART_DIR} \
+                            helm upgrade --install app-${params.ENVIRONMENT} ${HELM_CHART_DIR} \
                             --namespace ${params.ENVIRONMENT} \
                             --set ${chartValues} \
                             --set resources.requests.memory=128Mi \
@@ -185,11 +185,11 @@ pipeline {
             steps {
                 script {
                     echo "Checking if rollback is needed..."
-                    def releaseHistory = sh(script: "helm history website-${params.ENVIRONMENT} --namespace ${params.ENVIRONMENT} --output json", returnStdout: true).trim()
+                    def releaseHistory = sh(script: "helm history app-${params.ENVIRONMENT} --namespace ${params.ENVIRONMENT} --output json", returnStdout: true).trim()
                     if (releaseHistory.contains('"revision":')) {
-                        def lastRevision = sh(script: "helm history website-${params.ENVIRONMENT} --namespace ${params.ENVIRONMENT} | tail -2 | head -1 | awk '{print \$1}'", returnStdout: true).trim()
+                        def lastRevision = sh(script: "helm history app-${params.ENVIRONMENT} --namespace ${params.ENVIRONMENT} | tail -2 | head -1 | awk '{print \$1}'", returnStdout: true).trim()
                         echo "Rolling back to revision ${lastRevision}"
-                        sh "helm rollback website-${params.ENVIRONMENT} ${lastRevision} --namespace ${params.ENVIRONMENT}"
+                        sh "helm rollback app-${params.ENVIRONMENT} ${lastRevision} --namespace ${params.ENVIRONMENT}"
                     } else {
                         echo "No previous revision found. Skipping rollback."
                     }
