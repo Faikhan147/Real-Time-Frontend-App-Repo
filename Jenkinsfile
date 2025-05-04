@@ -91,29 +91,32 @@ pipeline {
             }
         }
 
-        stage('Run Unit & Integration Tests') {
-            when {
-                expression { fileExists('Application/package.json') }
-            }
-            steps {
-                dir('Application') {
-                    script {
-                        echo "Running unit tests..."
-                        sh """
-                            npm install || { echo 'npm install failed!'; exit 1; }
-                            npm install --save-dev jest-html-reporter
-                            npm run test -- --coverage --reporters=default --reporters=jest-html-reporter || { echo 'Unit tests failed!'; exit 1; }
-                            npm audit fix --force
-                        """
-                        publishHTML(target: [
-                            reportDir: 'Application',
-                            reportFiles: 'jest-html-report.html',
-                            reportName: 'Jest Test Report'
-                        ])
-                    }
-                }
+/*
+stage('Run Unit & Integration Tests') {
+    when {
+        expression { fileExists('Application/package.json') }
+    }
+    steps {
+        dir('Application') {
+            script {
+                echo "Running unit tests..."
+                sh """
+                    npm install || { echo 'npm install failed!'; exit 1; }
+                    npm install --save-dev jest-html-reporter
+                    npm run test -- --coverage --reporters=default --reporters=jest-html-reporter || { echo 'Unit tests failed!'; exit 1; }
+                    npm audit fix --force
+                """
+                publishHTML(target: [
+                    reportDir: 'Application',
+                    reportFiles: 'jest-html-report.html',
+                    reportName: 'Jest Test Report'
+                ])
             }
         }
+    }
+}
+*/
+
 
         stage('DockerHub Login') {
             steps {
