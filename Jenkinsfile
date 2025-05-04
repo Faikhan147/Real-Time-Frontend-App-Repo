@@ -10,12 +10,12 @@ pipeline {
     environment {
         DOCKER_IMAGE = "faisalkhan35/my-app"
         SLACK_WEBHOOK_URL = credentials('slack-webhook')
-        BACKEND_IMAGE_NAME = "faisalkhan35/my-app"
+        FRONTEND_IMAGE_NAME = "faisalkhan35/my-app"
         TAG = "${BUILD_NUMBER}"
         SONAR_PROJECT_KEY = "App"
-        SONAR_PROJECT_NAME = "Backend-App"
+        SONAR_PROJECT_NAME = "Frontend-App"
         SONAR_SCANNER_HOME = "/opt/sonar-scanner"
-        IMAGE_NAME_TAG = "${BACKEND_IMAGE_NAME}:${TAG}"
+        IMAGE_NAME_TAG = "${FRONTEND_IMAGE_NAME}:${TAG}"
         HELM_CHART_DIR = "helm/App-chart"
         APP_URL = credentials('app-url')
     }
