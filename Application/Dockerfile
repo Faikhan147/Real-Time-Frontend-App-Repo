@@ -1,7 +1,6 @@
 # Step 1: Build  App
-FROM node:20-alpine3.22 AS builder
+FROM node:20-bullseye AS builder
 WORKDIR /app
-RUN apk update && apk upgrade --no-cache
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
