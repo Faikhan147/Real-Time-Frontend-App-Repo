@@ -1,5 +1,5 @@
 # Step 1: Build  App
-FROM node:20-bullseye AS builder
+FROM node:alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
