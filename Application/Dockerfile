@@ -1,5 +1,5 @@
 # Step 1: Build  App
-FROM node:20-alpine3.21.4 AS builder
+FROM node:20-alpine3.21 AS builder
 WORKDIR /app
 RUN apk update && apk upgrade libxml2
 COPY package*.json ./
