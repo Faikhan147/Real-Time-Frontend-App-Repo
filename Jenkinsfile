@@ -23,29 +23,29 @@ pipeline {
 
     }
 
-    stages {
-        stage('Checkout Code') {
-            steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "*/${params.BRANCH}"]],
-                    userRemoteConfigs: [[
-                        url: "${params.REPO_URL}",
-                        credentialsId: 'github-credentials'
-                    ]]
-                ])
-            }
-        }
-
-stage('Create SonarQube Project') {
-    steps {
-        withCredentials([string(credentialsId: 'Sonar-Global-Token', variable: 'SONAR_TOKEN')]) {
-            sh """
-                curl -u ${SONAR_TOKEN}: -X POST "http://54.206.159.25:9000/api/projects/create?name=${SONAR_PROJECT_NAME}&project=${SONAR_PROJECT_KEY}"
-            """
+stages {
+    stage('Checkout Code') {
+        steps {
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: "*/${params.BRANCH}"]],
+                userRemoteConfigs: [[
+                    url: "${params.REPO_URL}",
+                    credentialsId: 'github-credentials'
+                ]]
+            ])
         }
     }
-}
+
+    stage('Create SonarQube Project') {   // ✅ ab sahi level pe hai
+        steps {
+            withCredentials([string(credentialsId: 'Sonar-Global-Token', variable: 'SONAR_TOKEN')]) {
+                sh """
+                    curl -u ${SONAR_TOKEN}: -X POST "http://54.206.159.25:9000/api/projects/create?name=${SONAR_PROJECT_NAME}&project=${SONAR_PROJECT_KEY}"
+                """
+            }
+        }
+    }
 
 
         stage('SonarQube Code Analysis') {
